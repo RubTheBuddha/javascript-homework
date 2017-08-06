@@ -1,0 +1,74 @@
+<html>
+<head>
+	<title>Psychic Game</title>
+</head>
+<body>
+  <h1> They Psychic Game</h1>
+  <h2> Guess what I'm thinking of </h2>
+  <h2> Wins: <span class="wins">0</span> </h2>
+  <h2> Losses: <span class="losses">0</span></h2>
+  <h2> Guesses Left: <span class="guessesleft">9</span></h2>
+  <h2> Your Guesses:  </h2>
+  <span class="userGuesses"></span>
+
+<script type="text/javascript">
+	
+var losses = 0;
+var wins = 0;
+var guessesLeft = 9;
+var guesses = [];
+
+
+var potentialAnswers = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+
+
+var rand = potentialAnswers[Math.floor(Math.random() * potentialAnswers.length)];
+
+console.log(rand);
+
+function reset() {
+  guesses = [];
+  guessesLeft = 9;
+}
+
+function updateScreen() {
+  document.getElementsByClassName('userGuesses')[0].innerHTML = guesses.toString();
+  document.getElementsByClassName('wins')[0].innerHTML = wins;
+  document.getElementsByClassName('losses')[0].innerHTML = losses;
+  document.getElementsByClassName('guessesleft')[0].innerHTML = guessesLeft;
+} 
+
+document.onkeypress = function(e) {
+var keynum;
+
+    if(window.event) { // IE                    
+      keynum = e.keyCode;
+    } else if(e.which){ // Netscape/Firefox/Opera                   
+      keynum = e.which;
+    }
+
+    var userChoice = String.fromCharCode(keynum);
+  
+  if (userChoice === rand) {
+      wins ++;
+      alert("You Win!")
+      reset();
+  }
+  else {
+   
+    guesses.push(userChoice);
+    
+    guessesLeft --;
+    if (guessesLeft === 0) {
+      losses++;
+      alert("You Lose :(")
+      reset();
+    }
+  }
+  updateScreen();
+}
+
+</script>
+</body>
+
+</html>
